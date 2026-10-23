@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10091c">
+  <title>AI Rashed Music</title>
+  <meta name="description" content="AI Rashed Music - বাংলা অডিও গান ও ভিডিও গানের সংগ্রহ">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #0b0712;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+    header {
+      padding: 25px 16px;
+      text-align: center;
+      background: linear-gradient(135deg,#1b0b35,#451078,#170a2c);
+      border-bottom: 1px solid #a855f7;
+    }
+    header h1 {
+      margin: 0;
+      color: #e9c6ff;
+      font-size: 30px;
+      text-shadow: 0 0 15px #a855f7;
+    }
+    header p { color: #d8c4eb; }
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 14px;
+      background: #130d1d;
+    }
+    button {
+      padding: 11px 17px;
+      border: 1px solid #a855f7;
+      border-radius: 9px;
+      background: #251139;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover { background: #6d28d9; }
+    main { max-width: 900px; margin: auto; padding: 20px; }
+    .hero {
+      text-align: center;
+      padding: 30px 10px;
+    }
+    .hero h2 { color: #d8a7ff; }
+    input {
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #7040a0;
+      background: #191122;
+      color: white;
+      margin: 10px 0;
+    }
+    .song {
+      padding: 18px;
+      margin: 14px 0;
+      border: 1px solid #482361;
+      border-radius: 12px;
+      background: #160f20;
+    }
+    .song h3 { color: #ddb3ff; }
+    .empty { color: #c4b5d4; text-align: center; padding: 25px 5px; }
+    .admin {
+      border: 1px solid #a855f7;
+      border-radius: 12px;
+      padding: 18px;
+      margin-top: 30px;
+      background: #130d1d;
+    }
+    .hidden { display: none; }
+    audio, video { width: 100%; margin-top: 10px; }
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #bca9ca;
+      border-top: 1px solid #392044;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎵 AI Rashed Music</h1>
+    <p>নিজের তৈরি গান, নিজের সুরে</p>
+  </header>
+
+  <nav>
+    <button onclick="showSongs('audio')">🎵 অডিও গান</button>
+    <button onclick="showSongs('video')">🎬 ভিডিও গান</button>
+    <button onclick="document.getElementById('admin').classList.toggle('hidden')">🔐 অ্যাডমিন</button>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <h2>আপনার পছন্দের বাংলা গান</h2>
+      <p>AI Rashed Music-এ স্বাগতম</p>
+      <input id="search" placeholder="গানের নাম লিখে খুঁজুন..." oninput="renderSongs()">
+    </section>
+
+    <h2 id="sectionTitle">🎵 অডিও গান</h2>
+    <div id="songs">
+      <p class="empty">এখনো কোনো গান যোগ করা হয়নি।</p>
+    </div>
+
+    <section id="admin" class="admin hidden">
+      <h2>🔐 গান যোগ করুন</h2>
+      <p>এই প্রাথমিক সংস্করণে গান শুধু আপনার বর্তমান ব্রাউজারে সংরক্ষিত হবে। এটি নিরাপদ অনলাইন অ্যাডমিন প্যানেল নয়।</p>
+      <label>গানের নাম</label>
+      <input id="songTitle" placeholder="গানের নাম">
+      <label>গানের ধরন</label>
+      <select id="songType" style="width:100%;padding:12px;background:#191122;color:white">
+        <option value="audio">অডিও গান</option>
+        <option value="video">ভিডিও গান</option>
+      </select>
+      <p>গানের ফাইল নির্বাচন করুন</p>
+      <input id="songFile" type="file" accept="audio/*,video/*">
+      <button onclick="addSong()">গান যোগ করুন</button>
+      <p id="status"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 AI Rashed Music</p>
+    <p>বাংলা গানের জন্য আপনার নিজস্ব প্ল্যাটফর্ম</p>
+  </footer>
+
+  <script>
+    let songs = [];
+    let currentType = "audio";
+
+    function showSongs(type) {
+      currentType = type;
+      document.getElementById("sectionTitle").textContent =
+        type === "audio" ? "🎵 অডিও গান" : "🎬 ভিডিও গান";
+      renderSongs();
+    }
+
+    function addSong() {
+      const title = document.getElementById("songTitle").value.trim();
+      const file = document.getElementById("songFile").files[0];
+      const type = document.getElementById("songType").value;
+      const status = document.getElementById("status");
+
+      if (!title || !file) {
+        status.textContent = "গানের নাম ও ফাইল নির্বাচন করুন।";
+        return;
+      }
+
+      if (type === "audio" && !file.type.startsWith("audio/")) {
+        status.textContent = "অডিও গানের জন্য অডিও ফাইল নির্বাচন করুন।";
+        return;
+      }
+
+      if (type === "video" && !file.type.startsWith("video/")) {
+        status.textContent = "ভিডিও গানের জন্য ভিডিও ফাইল নির্বাচন করুন।";
+        return;
+      }
+
+      const url = URL.createObjectURL(file);
+      songs.push({ title, type, url });
+      document.getElementById("songTitle").value = "";
+      document.getElementById("songFile").value = "";
+      status.textContent = "গান যোগ হয়েছে। এই ব্রাউজার সেশনেই পাওয়া যাবে।";
+      showSongs(type);
+    }
+
+    function renderSongs() {
+      const container = document.getElementById("songs");
+      const query = document.getElementById("search").value.toLowerCase();
+      const filtered = songs.filter(song =>
+        song.type === currentType &&
+        song.title.toLowerCase().includes(query)
+      );
+
+      if (!filtered.length) {
+        container.innerHTML = '<p class="empty">এখানে এখনো কোনো গান নেই।</p>';
+        return;
+      }
+
+      container.innerHTML = "";
+      filtered.forEach(song => {
+        const card = document.createElement("article");
+        card.className = "song";
+
+        const title = document.createElement("h3");
+        title.textContent = song.title;
+        card.appendChild(title);
+
+        const player = document.createElement(song.type === "audio" ? "audio" : "video");
+        player.src = song.url;
+        player.controls = true;
+        if (song.type === "video") player.playsInline = true;
+        card.appendChild(player);
+        container.appendChild(card);
+      });
+    }
+  </script>
+</body>
+</html>
