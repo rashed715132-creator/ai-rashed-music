@@ -1,0 +1,211 @@
+
+/* AI Rashed Music - Neon Theme */
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0b0712;
+  --panel: #160f20;
+  --purple: #a855f7;
+  --light-purple: #e9c6ff;
+  --text: #ffffff;
+  --muted: #c4b5d4;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse at top, #241039 0%, var(--bg) 55%);
+  color: var(--text);
+  font-family: Arial, "Noto Sans Bengali", sans-serif;
+  line-height: 1.6;
+}
+
+header {
+  padding: 35px 16px;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    #1b0b35,
+    #451078,
+    #170a2c
+  );
+  border-bottom: 1px solid var(--purple);
+  box-shadow: 0 5px 25px #a855f722;
+}
+
+header h1 {
+  margin: 0;
+  color: var(--light-purple);
+  font-size: clamp(27px, 5vw, 42px);
+  text-shadow: 0 0 18px #a855f7;
+}
+
+header p {
+  margin-bottom: 0;
+  color: #e1cbed;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 15px;
+  background: #130d1df2;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  border-bottom: 1px solid #392044;
+}
+
+button {
+  padding: 11px 18px;
+  border: 1px solid var(--purple);
+  border-radius: 9px;
+  background: #251139;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background: #6d28d9;
+  box-shadow: 0 0 14px #a855f755;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--light-purple);
+  outline-offset: 3px;
+}
+
+main {
+  width: min(100% - 28px, 950px);
+  margin: auto;
+  padding: 20px 0 35px;
+}
+
+.hero {
+  text-align: center;
+  padding: 32px 12px;
+}
+
+.hero h2,
+#sectionTitle {
+  color: var(--light-purple);
+}
+
+input {
+  width: 100%;
+  padding: 13px;
+  margin: 10px 0;
+  border: 1px solid #7040a0;
+  border-radius: 9px;
+  background: #191122;
+  color: white;
+  font-size: 16px;
+}
+
+input::placeholder {
+  color: #b9a6ca;
+}
+
+.song {
+  padding: 18px;
+  margin: 16px 0;
+  border: 1px solid #482361;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #1d1229, #110b19);
+  box-shadow: 0 5px 20px #0003;
+  overflow: hidden;
+}
+
+.song h3 {
+  color: var(--light-purple);
+  margin-top: 0;
+  overflow-wrap: anywhere;
+}
+
+.song audio,
+.song video {
+  display: block;
+  width: 100%;
+  max-height: 420px;
+  margin-top: 12px;
+  border-radius: 8px;
+}
+
+.empty {
+  text-align: center;
+  padding: 28px 10px;
+  color: var(--muted);
+  border: 1px dashed #7040a0;
+  border-radius: 12px;
+}
+
+.admin {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid var(--purple);
+  border-radius: 14px;
+  background: #130d1d;
+}
+
+.admin h2 {
+  color: var(--light-purple);
+}
+
+.admin label {
+  display: block;
+  margin-top: 12px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+footer {
+  padding: 24px 15px;
+  text-align: center;
+  color: var(--muted);
+  background: #100a17;
+  border-top: 1px solid #392044;
+}
+
+footer p {
+  margin: 5px;
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 25px 12px;
+  }
+
+  nav {
+    gap: 7px;
+    padding: 11px 6px;
+  }
+
+  nav button {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  main {
+    width: calc(100% - 22px);
+  }
+
+  .song,
+  .admin {
+    padding: 14px;
+  }
+}
